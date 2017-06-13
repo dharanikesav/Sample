@@ -1,0 +1,178 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.tcs</groupId>
+	<artifactId>BookingEngine</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<properties>
+		<test.config.file>testng</test.config.file>
+		<maven.build.timestamp.format>E yyyy.MM.dd hh.mm.ss a</maven.build.timestamp.format>
+	</properties>
+
+	<!-- DEPENDENCIES INFO -->
+	<dependencies>
+
+
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>6.8.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-server</artifactId>
+            <version>2.41.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.6</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.sourceforge.jexcelapi</groupId>
+            <artifactId>jxl</artifactId>
+            <version>2.6</version>
+        </dependency>
+
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.16</version>
+            <type>jar</type>
+        </dependency>
+
+        <dependency>
+            <groupId>org.uncommons</groupId>
+            <artifactId>reportng</artifactId>
+            <version>1.1.2</version>
+            <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.testng</groupId>
+                    <artifactId>testng</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+            <version>3.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jidesoft</groupId>
+            <artifactId>jide-oss</artifactId>
+            <version>3.6.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-api</artifactId>
+            <version>2.53.0</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-remote-driver</artifactId>
+            <version>2.45.0</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-support</artifactId>
+            <version>2.45.0</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-chrome-driver</artifactId>
+            <version>2.45.0</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-ie-driver</artifactId>
+            <version>2.45.0</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-firefox-driver</artifactId>
+            <version>2.45.0</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>net.sourceforge.htmlunit</groupId>
+            <artifactId>htmlunit</artifactId>
+            <version>2.15</version>
+            <scope>test</scope>
+            <type>jar</type>
+        </dependency>
+    </dependencies>
+
+	<!-- BUILD INFO -->
+	<build>
+			
+		<testOutputDirectory>${project.basedir}\target\${maven.build.timestamp}\</testOutputDirectory>
+
+		<testResources>
+            <testResource>
+                <directory>src/main/resources</directory> 
+                <filtering>true</filtering> 
+                <includes>
+                    <include>**/*.properties</include> 
+                    <include>**/*.xml</include>
+                </includes>
+            </testResource>
+  			
+            <testResource>
+                <directory>src/test/resources</directory> 
+            </testResource>
+        </testResources>
+		
+			<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.18.1</version>
+				<configuration>
+					<!-- added to make sure that the execution continuous even if tests 
+						fails -->
+					<testFailureIgnore>true</testFailureIgnore>
+					<systemPropertyVariables>
+					    <log.directory>${project.basedir}\target\${maven.build.timestamp}\log\</log.directory>
+						<screenshot.directory>${project.basedir}\target\${maven.build.timestamp}\screenshot</screenshot.directory>
+					</systemPropertyVariables>
+					<workingDirectory>${project.basedir}\target\${maven.build.timestamp}\</workingDirectory>
+					<reportsDirectory>${project.basedir}\target\${maven.build.timestamp}\</reportsDirectory>
+					<suiteXmlFiles>
+						<suiteXmlFile>${test.config.file}.xml</suiteXmlFile>
+					</suiteXmlFiles>
+					<properties>
+						<property>
+							<name>usedefaultlisteners</name>
+							<value>false</value>
+						</property>
+						<property>
+							<name>listener</name>
+							<value>org.uncommons.reportng.HTMLReporter, org.uncommons.reportng.JUnitXMLReporter</value>
+						</property>
+					</properties>
+
+					<!-- INCLUDE ALL TEST SCRIPT FILES -->
+					<includes>
+						<include>**/*.java</include>
+					</includes>
+				</configuration>
+			</plugin>
+			
+			
+		</plugins>
+		<!-- To use the plugin goals in your POM or parent POM -->
+	</build>
+    <name>BookingEngine</name>
+</project>
